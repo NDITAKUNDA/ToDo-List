@@ -1,0 +1,31 @@
+<%- include("partials/header") %>
+<section class="landing-section flex flex-row">
+    <div class="message flex flex-row">
+        <h2 class="font-lato">Increase productivity,<br> write it down!</h2>
+    </div>
+    <div class="cont">
+        <form action="/dashboard" method="post" class="sign-in"> 
+            <div class="flex flex-column">
+                <label class="c font-roboto" for="username">Username</label>
+                <input class="a font-roboto" type="text" name="username" placeholder="Enter username" required>
+            </div>
+            <div class="flex flex-column">
+                <label class="c font-roboto" for="password">Password</label>
+                <input class="a font-roboto" type="password" name="password" placeholder="Enter password" required>
+            </div>
+            <div class="flex flex-row" style="height: 20px; align-items: center;">
+                <label for="forgot" class="forgot">Forgot your password?</label>
+            </div>
+            <div class="flex flex-column btn">
+                <input class="a b" type="submit" value="Sign In" onclick="validateForm(event)">
+            </div>
+            <div class="flex flex-row" >
+                <label for="sign-up" class="signup">Not registered? <a href="/signup">Sign Up</a></label>
+            </div>
+            <input type="hidden" name="pageTitle" value="<%= pageTitle %>">
+        </form>
+    </div>
+</section>
+</body>
+<script src="/js/page.js"></script>
+</html>

@@ -1,0 +1,14 @@
+<nav class="nav-section flex flex-row">
+    <label for="username"><span>Hi,</span> <%= username %> 👋</label>
+    <input type="checkbox" id="check">
+    <label id="btn" for="check" class="checkbox">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    <ul class="flex flex-row">
+        <li><a class="font-roboto" href="/dashboard/<%= username %>">Home</a></li>
+        <li><a class="font-roboto" href="/dashboard/about">About</a></li>
+        <li><a class="font-roboto" href="#">Contact</a></li>
+    </ul>
+</nav>

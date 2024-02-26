@@ -1,0 +1,40 @@
+<%- include("partials/header") %>
+<%- include("partials/navbar") %>
+
+<section class="dashboard">
+    <h3 class="title font-lato">My Lists</h3>
+    <div class="lists flex flex-row">
+       
+        <% if ( lists.length == 0) { %>
+            <form action="/dashboard/<%= username %>/<%= defaultList.listName %>" method="get" class="list-card flex">
+                <label class="list-title font-roboto flex"><%= defaultList.listName %></label>
+            </form>
+        <% } else { %>
+            <% lists.forEach(list => { %>
+                <div class="list-container flex flex-column">
+                    <form action="/dashboard/<%= username %>/<%= list.listName %>" method="get" class="list-card flex">
+                        <label for="checkbox" class="list-title font-roboto flex"><%= list.listName %></label>
+                    </form>
+                    <div class="delete flex flex-row">
+                        <form action="/dashboard/delete-list" method="post" class="btns">
+                            <input type="hidden" name="username" value="<%= username %>">
+                            <input type="hidden" name="listName" value="<%= list.listName %>">
+                            <input class="font-roboto" type="submit" value="Delete">
+                        </form>
+                        <form action="/dashboard/<%= username %>/<%= list.listName %>/edit" method="get" class="btns">
+                            <input type="hidden" name="username" value="<%= username %>">
+                            <input type="hidden" name="listName" value="<%= list.listName %>">
+                            <input class="font-roboto" type="submit" value="Rename">
+                        </form>
+                    </div>
+                </div>
+            <% }); %>
+        <% } %>
+
+        <form action="/dashboad/<%= username %>/new-list" class="list-card flex" id="add-new" method="get">
+            +
+        </form>
+    </div>
+</section>
+
+<%- include("partials/footer") %>

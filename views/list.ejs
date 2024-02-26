@@ -1,0 +1,32 @@
+<%- include("partials/header") %>
+<%- include("partials/navbar") %>
+
+<section>
+  <div class="box font-lato" id="heading">
+    <h1>
+      <%= listTitle %>
+    </h1>
+  </div>
+
+  <div class="box">
+    <% listItems.forEach(listItem=> { %>
+      <form action="/delete" method="post" class="list-item">
+        <div class="item flex">
+          <input type="checkbox" onchange="this.form.submit()" name="checkbox" value="<%= listItem._id %>">
+          <p>
+            <%= listItem.listItem %>
+          </p>
+        </div>
+        <input type="hidden" name="listName" value="<%= listTitle %>">
+        <input type="hidden" name="username" value="<%= username %>">
+      </form>
+      <% }); %>
+
+        <form class="item flex" action="/dashboard/<%= username %>/<%= listTitle %>" method="post">
+          <input type="text" name="newItem" placeholder="New Item" autocomplete="off" class="aa">
+          <button type="submit" name="list" value="<%= listTitle %>" class="submit-btn" onclick="validateForm(event)">+</button>
+        </form>
+  </div>
+</section>
+
+<%- include("partials/footer") %>

@@ -1,0 +1,41 @@
+<%- include("partials/header") %>
+<section class="landing-section flex flex-row signup-cont">
+    <div class="message flex flex-row signup-message">
+        <h2 class="font-lato">Increase productivity,<br> write it down!</h2>
+    </div>
+    <div class="cont">
+        <form action="/dashboard" method="post" class="sign-in"> 
+            <div class="flex flex-column">
+                <label class="c font-roboto" for="firstname">Firstname</label>
+                <input class="a font-roboto" type="text" name="firstname" placeholder="Enter firstname" required>
+            </div>
+            <div class="flex flex-column">
+                <label class="c font-roboto" for="email">Email</label>
+                <input class="a font-roboto" type="email" name="email" id="email"placeholder="Enter email" required>
+            </div>
+            <div class="flex flex-column">
+                <label class="c font-roboto" for="username">Username</label>
+                <input class="a font-roboto" type="text" name="username" placeholder="Enter username" required>
+            </div>
+            <div class="flex flex-column">
+                <label class="c font-roboto" for="password">Password</label>
+                <input id="passwordInput" class="a font-roboto" type="password" name="password" placeholder="Enter password" required>
+            </div>
+            <div class="flex flex-column">
+                <label class="c font-roboto" for="repassword">Re-enter Password</label>
+                <input id="repasswordInput" class="a font-roboto" type="password" name="repassword" placeholder="Re-enter password" required>
+                <p id="passwordMatchMessage" class="font-roboto" style="display: none; color: red; font-size: 18px">Passwords should match</p>
+            </div>
+            <div class="flex flex-column btn">
+                <input id="submitButton" class="a b" type="submit" value="Sign Up" disabled onclick="validateForm(event)">
+            </div>
+            <div class="flex flex-row" >
+                <label for="sign-up" class="signup">Registered already? <a href="/">Sign In</a></label>
+            </div>
+            <input type="hidden" name="pageTitle" value="<%= pageTitle %>">
+        </form>
+    </div>
+</section>
+</body>
+<script src="/js/page.js"></script>
+</html>
