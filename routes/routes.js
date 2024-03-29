@@ -6,18 +6,18 @@ const User = require("../models/users");
 const defaultList = {
   listName: "Getting Started",
   listItems: [
-      {
-        listItem: "Welcome to my free to do list"
-      },
-      {
-        listItem: "Hit + to add new items"
-      },
-      {
-        listItem: "Hit this to delete an item"
-      },
-      {
-        listItem: "Stay productive"
-      }
+    {
+      listItem: "Welcome to my free to do list",
+    },
+    {
+      listItem: "Hit + to add new items",
+    },
+    {
+      listItem: "Hit this to delete an item",
+    },
+    {
+      listItem: "Stay productive",
+    },
   ],
 };
 
@@ -33,7 +33,10 @@ router.get("/signup", (req, res) => {
 
 // route to create a new list
 router.get("/dashboad/:username/new-list", async (req, res) => {
-  res.render("new-list", { pageTitle: "Create New List", username: req.params.username });
+  res.render("new-list", {
+    pageTitle: "Create New List",
+    username: req.params.username,
+  });
 });
 
 // login or sign up redirect to the dashboard
@@ -60,7 +63,8 @@ router.post("/dashboard", async (req, res) => {
           password: req.body.password,
         });
 
-        user.save()
+        user
+          .save()
           .then((user) => {
             renderDashboard(res, user);
           })
@@ -75,7 +79,11 @@ router.post("/dashboard", async (req, res) => {
         listItems: [],
       };
 
-      User.findOneAndUpdate({ username }, { $push: { lists: newList } }, { new: true })
+      User.findOneAndUpdate(
+        { username },
+        { $push: { lists: newList } },
+        { new: true }
+      )
         .then((updatedUser) => {
           renderDashboard(res, updatedUser);
         })
@@ -85,11 +93,12 @@ router.post("/dashboard", async (req, res) => {
     } else if (userType === "Edit List Name") {
       const username = req.body.username;
       const newListName = req.body.newListName;
+      const oldListName = req.body.oldListName;
 
       User.findOneAndUpdate(
         { username },
         { $set: { "lists.$[elem].listName": newListName } },
-        { new: true, arrayFilters: [{ "elem.listName": { $exists: true } }] }
+        { new: true, arrayFilters: [{ "elem.listName": oldListName }] }
       )
         .then((updatedUser) => {
           renderDashboard(res, updatedUser);
@@ -122,7 +131,9 @@ router.get("/dashboard/:username/:listName", async (req, res) => {
       });
     } else {
       if (foundUser) {
-        const customList = foundUser.lists.find((list) => list.listName === listToView);
+        const customList = foundUser.lists.find(
+          (list) => list.listName === listToView
+        );
 
         if (customList) {
           renderList(res, currentUserName, listToView, customList, foundUser);
@@ -140,7 +151,7 @@ router.get("/dashboard/:username/:listName", async (req, res) => {
 
 // route to the about page
 router.get("/dashboard/about", (req, res) => {
-  res.render("about", {pageTitle: "About | To Do List"});
+  res.render("about", { pageTitle: "About | To Do List" });
 });
 
 // route to add a list item
@@ -155,7 +166,9 @@ router.post("/dashboard/:username/:listName", async (req, res) => {
         defaultList.listItems.push(item);
         return user.save();
       } else {
-        const customList = user.lists.find((list) => list.listName === currentList);
+        const customList = user.lists.find(
+          (list) => list.listName === currentList
+        );
 
         if (customList) {
           customList.listItems.push({ listItem: item });
@@ -186,7 +199,9 @@ router.post("/delete", (req, res) => {
         defaultList.listItems.splice(itemIdToDelete, 1);
         return user.save();
       } else {
-        const customList = user.lists.find((list) => list.listName === listName);
+        const customList = user.lists.find(
+          (list) => list.listName === listName
+        );
 
         if (customList) {
           customList.listItems.splice(itemIdToDelete, 1);
@@ -208,7 +223,7 @@ router.post("/delete", (req, res) => {
 // route to delete a list
 router.post("/dashboard/delete-list", (req, res) => {
   const { username, listName } = req.body;
-  
+
   User.findOneAndUpdate(
     { username },
     { $pull: { lists: { listName } } },
@@ -226,11 +241,11 @@ router.post("/dashboard/delete-list", (req, res) => {
 // Route to redirect user to their dashboard
 router.get("/dashboard/:username", async (req, res) => {
   const username = req.params.username;
-  const user = await User.findOne({username});
+  const user = await User.findOne({ username });
 
-      if (user) {
-        renderDashboard(res, user);
-      } 
+  if (user) {
+    renderDashboard(res, user);
+  }
 });
 
 // Route to render the edit list name form
@@ -241,7 +256,9 @@ router.get("/dashboard/:username/:listName/edit", async (req, res) => {
 
   try {
     if (foundUser) {
-      const customList = foundUser.lists.find((list) => list.listName === listToEdit);
+      const customList = foundUser.lists.find(
+        (list) => list.listName === listToEdit
+      );
 
       if (customList) {
         res.render("edit-list", {
@@ -265,7 +282,7 @@ function renderDashboard(res, user) {
     pageTitle: `${user.username}'s Dashboard | To Do List`,
     username: user.username,
     lists: user.lists,
-    defaultList: defaultList
+    defaultList: defaultList,
   });
 }
 

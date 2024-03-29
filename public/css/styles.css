@@ -179,13 +179,14 @@ form {
 }
 .dashboard .lists {
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 .dashboard .list-container {
-  width: 300px;
-  height: 285px;
   align-items: flex-start;
   justify-content: flex-start;
-  margin: 20px 20px 0 0;
+  position: relative;
+  margin: 20px;
 }
 .lists .list-container div.delete {
   height: 45px;
@@ -194,42 +195,72 @@ form {
 }
 .dashboard .list-card {
   background-color:  #86A789;
-  align-items: flex-end;
-  padding-bottom: 40px;
-  border-radius: 5px;
-  margin: 20px 20px 0 0;
   width: 300px;
   height: 250px;
-  align-items: center;
+  border-radius: 5px;
+  justify-content: flex-start;
+}
+.dashboard .list-card#add-new {
+  margin: 20px;
+}
+.dashboard .list-card:hover, .dashboard .list-card *:hover {
+  cursor: pointer;
 }
 .lists .list-container form.list-card {
-  padding: 0;
   border-radius: 5px 5px 0 0;
   height: 200px;
   margin-bottom: -8px;
 }
 .lists .list-container form.btns {
-  background-color: #86A789;
-  border-radius: 0 ;
-  border: 1px solid #f9f9f9;
+  border: none;
+  position: absolute;
+  top: 20px;
+  width: 30px;
+  padding: 0;
+  z-index: 1;
 }
-.lists .list-container form.btns input[type="submit"] {
+.lists .list-container form.btns.delete-button {
+  right: 50px;
+}
+.lists .list-container form.btns.rename-button {
+  right: 15px;
+}
+.lists .list-container form.btns:first-child {
+  border-bottom-left-radius: 5px;
+}
+.lists .list-container form.btns:last-child {
+  border-bottom-right-radius: 5px;
+}
+.lists .list-container form.btns input[type="image"] {
   outline: none;
   background-color: transparent;
   border: none;
-  color: #fff;
+  width: 30px;
+  height: 30px
 }
-.dashboard .list-card#add-new {
-  border-radius: 5px;
-  margin: 20px 20px 0 0;
-  width: 300px;
-  height: 250px;
-  align-items: center;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 100px;
-  color: #fff;
+.dashboard label.name {
+  padding-bottom: 8px;
+  border-bottom: 2px solid #21251f;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 50px;
 }
-
+.dashboard .list-card label.icon {
+  background-color: #21251f;
+  border-radius: 50%;
+  font-size: 60px;
+  width: 80px;
+  height: 80px;
+  color: #f2f2f2;
+}
+.dashboard .list-card label.icon.a {
+  border-radius: 0;
+  background-color: transparent;
+  background-image: url("../assets/list.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
 /* List Styles */
 .box {
   max-width: 400px;
@@ -415,6 +446,7 @@ section.about {
     top: -60vh;
     left: 0;
     transition: top 0.5s ease-in;
+    z-index: 3;
   }
   nav ul.mobile {
     justify-content: space-evenly;

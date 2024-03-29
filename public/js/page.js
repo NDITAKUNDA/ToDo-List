@@ -36,3 +36,7 @@ function checkPasswordMatch() {
 passwordInput.addEventListener("input", checkPasswordMatch);
 repasswordInput.addEventListener("input", checkPasswordMatch);
 
+
+function submitForm() {
+  document.getElementById("myForm").submit();
+}

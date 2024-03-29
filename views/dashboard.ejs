@@ -6,33 +6,36 @@
     <div class="lists flex flex-row">
        
         <% if ( lists.length == 0) { %>
-            <form action="/dashboard/<%= username %>/<%= defaultList.listName %>" method="get" class="list-card flex">
-                <label class="list-title font-roboto flex"><%= defaultList.listName %></label>
+            <form action="/dashboard/<%= username %>/<%= defaultList.listName %>" method="get" class="list-card flex flex-column">
+                <label class="name font-roboto flex"><%= defaultList.listName %></label>
+                <label class="icon flex font-roboto a"></label>
             </form>
         <% } else { %>
             <% lists.forEach(list => { %>
-                <div class="list-container flex flex-column">
-                    <form action="/dashboard/<%= username %>/<%= list.listName %>" method="get" class="list-card flex">
-                        <label for="checkbox" class="list-title font-roboto flex"><%= list.listName %></label>
+                <div class="list-card list-container flex flex-column">
+                    <form action="/dashboard/<%= username %>/<%= list.listName %>" method="get" class="list-card flex flex-column">
+                        <label class="name font-roboto"><%= list.listName %></label>
+                        <label class="icon flex font-roboto a"></label>
                     </form>
                     <div class="delete flex flex-row">
-                        <form action="/dashboard/delete-list" method="post" class="btns">
+                        <form action="/dashboard/delete-list" method="post" class="btns delete-button">
                             <input type="hidden" name="username" value="<%= username %>">
                             <input type="hidden" name="listName" value="<%= list.listName %>">
-                            <input class="font-roboto" type="submit" value="Delete">
+                            <input class="font-roboto" type="image" src="/assets/delete.png" alt="Delete" onclick="submitForm()">
                         </form>
-                        <form action="/dashboard/<%= username %>/<%= list.listName %>/edit" method="get" class="btns">
+                        <form action="/dashboard/<%= username %>/<%= list.listName %>/edit" method="get" class="btns rename-button">
                             <input type="hidden" name="username" value="<%= username %>">
                             <input type="hidden" name="listName" value="<%= list.listName %>">
-                            <input class="font-roboto" type="submit" value="Rename">
+                            <input class="font-roboto" type="image" src="/assets/edit.png" alt="Delete" onclick="submitForm()">
                         </form>
                     </div>
                 </div>
             <% }); %>
         <% } %>
 
-        <form action="/dashboad/<%= username %>/new-list" class="list-card flex" id="add-new" method="get">
-            +
+        <form action="/dashboad/<%= username %>/new-list" class="list-card flex flex-column" id="add-new" method="get">
+            <label class="name font-roboto flex">Add New</label>
+            <label class="icon flex font-roboto">+</label>
         </form>
     </div>
 </section>
