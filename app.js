@@ -7,6 +7,8 @@ const mongoose = require("mongoose");
 // initialising the app
 const app = express();
 
+databaseConnectionURL = 'mongodb://localhost:27017/toDoList';
+
 // serving the static files
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -18,7 +20,7 @@ app.set('view engine', 'ejs');
 app.use("/", require("./routes/routes"))
 
 // connecting to the database
-mongoose.connect("mongodb+srv://tnyanara:l2aevb6KubujR46k@cluster0.6h884av.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+mongoose.connect(databaseConnectionURL)
 .then(() => {
     console.log("Connection Successful");
     app.listen(3000, function() {
